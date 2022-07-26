@@ -7,7 +7,8 @@ Created on Mon Jun 27 23:04:14 2022
 
 import pandas as pd
 import matplotlib.pyplot as plt
-plt.style.use("bmh")
+#%%
+plt.style.use("fivethirtyeight")
 #%%
 df = pd.read_csv("https://raw.githubusercontent.com/SN129090/NU-Climate-Data-Analytics-Project/main/Baffin%20Sea%20Ice%20Extent.csv")
 df_beau = pd.read_csv("https://raw.githubusercontent.com/SN129090/NU-Climate-Data-Analytics-Project/main/Beaufort%20Sea%20Ice%20Extent.csv")
@@ -106,7 +107,7 @@ baffin_spr_y = baffin_spr['BAFFIN SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y"))
 baffin_sum_y = baffin_sum['BAFFIN SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
 baffin_fall_y = baffin_fall['BAFFIN SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
 baffin_win_y = baffin_win['BAFFIN SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(16,8))
 plt.title("Baffin Sea Annual Seasonal Comparison")
 baffin_esp_y.plot(legend=True, label="Early Spring")
 baffin_spr_y.plot(legend=True, label="Spring")
@@ -208,6 +209,7 @@ hud_spr_y = hud_spr['HUDSON BAY SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).m
 hud_sum_y = hud_sum['HUDSON BAY SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
 hud_fall_y = hud_fall['HUDSON BAY SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
 hud_win_y = hud_win['HUDSON BAY SEA ICE EXTENT'].groupby(pd.Grouper(freq="Y")).mean()
+plt.figure(figsize=(12,8))
 plt.title("Hudson Bay Annual Seasonal Comparison")
 hud_esp_y.plot(legend=True, label="Early Spring")
 hud_spr_y.plot(legend=True, label="Spring")
@@ -281,10 +283,38 @@ baffin_spr_y.plot(legend=True, label="Baffin")
 hud_spr_y.plot(legend=True, label="Hudson Bay")
 #%% ACF/PACF Plots
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-plot_acf(baff_m, lags=20,title="Baffin Sea Ice Monthly Autocorrelation")
-plot_acf(beau_m, lags=20,title="Beaufort Sea Ice Monthly Autocorrelation")
+plot_acf(baffin_melt['BAFFIN SEA ICE EXTENT'], lags=40,title="Baffin Sea Ice Daily Autocorrelation", alpha = 0.5,auto_ylims=True)
+plot_acf(baff_m, lags=40,title="Baffin Sea Ice Monthly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(baf_q, lags=40,title="Baffin Sea Ice Quarterly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_pacf(baffin_melt['BAFFIN SEA ICE EXTENT'], lags=40,title="Baffin Sea Ice Daily PACF", alpha = 0.5,auto_ylims=True)
+plot_pacf(baff_m, lags=40,title="Baffin Sea Ice Monthly PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(baf_q, lags=40,title="Baffin Sea Ice Quarterly PACF", alpha = 0.5, auto_ylims=True)
+
+
+plot_acf(beau_melt['BEAUFORT SEA ICE EXTENT'], lags=40,title="Beaufort Sea Ice Daily Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(beau_m, lags=40,title="Beaufort Sea Ice Monthly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(beau_q, lags=40,title="Beaufort Sea Ice Quarterly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_pacf(beau_melt['BEAUFORT SEA ICE EXTENT'], lags=40,title="Beaufort Sea Ice Daily PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(beau_m, lags=40,title="Beaufort Sea Ice Monthly PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(beau_q, lags=40,title="Beaufort Sea Ice Quarterly PACF", alpha = 0.5, auto_ylims=True)
+#%%
+plot_acf(canarc_melt['CAN. ARCH. SEA ICE EXTENT'], lags=40,title="Canadian Archipelago Sea Ice Daily Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(canarc_m, lags=40,title="Canadian Archipelago Sea Ice Monthly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(canarc_q, lags=40,title="Canadian Archipelago Sea Ice Quarterly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_pacf(canarc_melt['CAN. ARCH. SEA ICE EXTENT'], lags=40,title="Canadian Archipelago Sea Ice Daily PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(canarc_m, lags=40,title="Canadian Archipelago Sea Ice Monthly PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(canarc_q, lags=40,title="Canadian Archipelago Sea Ice Quarterly PACF", alpha = 0.5, auto_ylims=True)
+#%%
+plot_acf(hudson_melt['HUDSON BAY SEA ICE EXTENT'], lags=40,title="Hudson Bay Sea Ice Daily Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(hudson_m, lags=40,title="Hudson Bay Sea Ice Monthly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_acf(hudson_q, lags=40,title="Hudson Bay Sea Ice Quarterly Autocorrelation", alpha = 0.5, auto_ylims=True)
+plot_pacf(hudson_melt['HUDSON BAY SEA ICE EXTENT'], lags=40,title="Hudson Bay Sea Ice Daily PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(hudson_m, lags=40,title="Hudson Bay Sea Ice Monthly PACF", alpha = 0.5, auto_ylims=True)
+plot_pacf(hudson_q, lags=40,title="Hudson Bay Sea Ice Quarterly PACF", alpha = 0.5, auto_ylims=True)
+#%%
 plot_acf(canarc_m, lags=20,title="Canadian Archipelago Sea Ice Monthly Autocorrelation")
 plot_acf(hudson_m, lags=20,title="Hudson Bay Sea Ice Monthly Autocorrelation")
+
 plot_pacf(baff_m, lags=20,title="Baffin Sea Ice Monthly PACF")
 plot_pacf(beau_m, lags=20,title="Beaufort Sea Ice Monthly PACF")
 plot_pacf(canarc_m, lags=20,title="Canadian Archipelago Sea Ice Monthly PACF")
@@ -298,7 +328,7 @@ Baffin_decomposed = seasonal_decompose(baffin_melt['BAFFIN SEA ICE EXTENT'],
 Baf_trend = Baffin_decomposed.trend
 Baf_seasonal = Baffin_decomposed.seasonal
 Baf_residual = Baffin_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(8,8))
 plt.subplot(411)
 plt.title("Baffin Decompose - Daily")
 plt.plot(baffin_melt['BAFFIN SEA ICE EXTENT'], label='Original')
@@ -322,7 +352,7 @@ Baffin_decomposed = seasonal_decompose(baff_m,
 Baf_trend = Baffin_decomposed.trend
 Baf_seasonal = Baffin_decomposed.seasonal
 Baf_residual = Baffin_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.title("Baffin Decompose - Monthly")
 plt.plot(baff_m, label='Original')
@@ -345,7 +375,7 @@ Baffin_decomposed = seasonal_decompose(baf_q,
 Baf_trend = Baffin_decomposed.trend
 Baf_seasonal = Baffin_decomposed.seasonal
 Baf_residual = Baffin_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.title("Baffin Decompose - Quarterly")
 plt.plot(baf_q, label='Original')
@@ -367,7 +397,7 @@ Beau_decomposed = seasonal_decompose(beau_melt['BEAUFORT SEA ICE EXTENT'],
 Beau_trend = Beau_decomposed.trend
 Beau_seasonal = Beau_decomposed.seasonal
 Beau_residual = Beau_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.title("Beaufort Sea Decompose - Daily")
 plt.plot(beau_melt['BEAUFORT SEA ICE EXTENT'], label='Original')
@@ -389,7 +419,7 @@ Beau_decomposed = seasonal_decompose(beau_m,
 Beau_trend = Beau_decomposed.trend
 Beau_seasonal = Beau_decomposed.seasonal
 Beau_residual = Beau_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.title("Beaufort Sea Decompose - Monthly")
 plt.plot(beau_m, label='Original')
@@ -411,7 +441,7 @@ Beau_decomposed = seasonal_decompose(beau_q,
 Beau_trend = Beau_decomposed.trend
 Beau_seasonal = Beau_decomposed.seasonal 
 Beau_residual = Beau_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.title("Beaufort Sea Decompose - Quarterly")
 plt.plot(beau_m, label='Original')
@@ -432,7 +462,7 @@ CA_decomposed = seasonal_decompose(canarc_melt['CAN. ARCH. SEA ICE EXTENT'],
 CA_trend = CA_decomposed.trend
 CA_seasonal = CA_decomposed.seasonal 
 CA_residual = CA_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(canarc_melt['CAN. ARCH. SEA ICE EXTENT'], label='Original')
 plt.legend(loc='upper left')
@@ -452,7 +482,7 @@ CA_decomposed = seasonal_decompose(canarc_m,
 CA_trend = CA_decomposed.trend
 CA_seasonal = CA_decomposed.seasonal
 CA_residual = CA_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(canarc_m, label='Original')
 plt.legend(loc='upper left')
@@ -472,7 +502,7 @@ CA_decomposed = seasonal_decompose(canarc_q,
 CA_trend = CA_decomposed.trend
 CA_seasonal = CA_decomposed.seasonal
 CA_residual = CA_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(canarc_q, label='Original')
 plt.legend(loc='upper left')
@@ -492,7 +522,7 @@ hud_decomposed = seasonal_decompose(hudson_melt['HUDSON BAY SEA ICE EXTENT'],
 hud_trend = hud_decomposed.trend
 hud_seasonal = hud_decomposed.seasonal
 hud_residual = hud_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(hudson_melt['HUDSON BAY SEA ICE EXTENT'], label='Original')
 plt.legend(loc='upper left')
@@ -512,7 +542,7 @@ hud_decomposed = seasonal_decompose(hudson_m,
 hud_trend = hud_decomposed.trend
 hud_seasonal = hud_decomposed.seasonal
 hud_residual = hud_decomposed.resid
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(hudson_m, label='Original')
 plt.legend(loc='upper left')
@@ -533,7 +563,7 @@ hud_trend = hud_decomposed.trend
 hud_seasonal = hud_decomposed.seasonal
 hud_residual = hud_decomposed.resid
 
-plt.figure(figsize=(12,8))
+plt.figure(figsize=(15,8))
 plt.subplot(411)
 plt.plot(hudson_q, label='Original')
 plt.legend(loc='upper left')
